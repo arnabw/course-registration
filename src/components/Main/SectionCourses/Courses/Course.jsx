@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { FiDollarSign } from "react-icons/fi";
 import { IoBookOutline } from "react-icons/io5";
 
-const Course = ({ Courses }) => {
+const Course = ({ Courses, handleSelected }) => {
   const { name, description, photo, price, credit } = Courses;
 
   //JSX
@@ -24,6 +24,7 @@ const Course = ({ Courses }) => {
         </li>
       </ul>
       <button
+        onClick={() => handleSelected(name, credit, price)}
         type="button"
         className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300  shadow-lg shadow-blue-500/50  font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-full"
       >
@@ -35,6 +36,7 @@ const Course = ({ Courses }) => {
 
 Course.propTypes = {
   Courses: PropTypes.object.isRequired,
+  handleSelected: PropTypes.func.isRequired,
 };
 
 export default Course;
