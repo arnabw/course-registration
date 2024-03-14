@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import { FaDeleteLeft } from "react-icons/fa6";
 
-const Selected = ({ selectedSub, totalHour, totalPrice }) => {
+const Selected = ({ selected, totalHour, totalPrice, handleSelectDeleted }) => {
   return (
     <div className="bg-white rounded-xl p-6 lg:w-[700px] max-h-96 overflow-y-auto">
       <h2 className="text-[#2F80ED] font-bold text-lg">
@@ -8,9 +9,17 @@ const Selected = ({ selectedSub, totalHour, totalPrice }) => {
       </h2>
       <div className="my-4 py-4 border-y-2">
         <h3 className="text-xl font-bold text-[#1C1B1B]">Course Name</h3>
-        <ul className="list-decimal text-[#1C1B1B] text-base italic ml-6">
-          {selectedSub.map((sub, idx) => (
-            <li key={idx}>{sub}</li>
+        <ul className="list-decimal text-[#1C1B1B] text-base md:text-2xl lg:text-sm italic ml-6">
+          {selected.map((sub, idx) => (
+            <li key={idx}>
+              {sub.name}{" "}
+              <button
+                onClick={() => handleSelectDeleted(sub.id)}
+                className="text-red-700 text-lg md:text-3xl lg:text-base"
+              >
+                <FaDeleteLeft />
+              </button>
+            </li>
           ))}
         </ul>
       </div>
@@ -25,9 +34,10 @@ const Selected = ({ selectedSub, totalHour, totalPrice }) => {
 };
 
 Selected.propTypes = {
-  selectedSub: PropTypes.array.isRequired,
+  selected: PropTypes.array.isRequired,
   totalHour: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
+  handleSelectDeleted: PropTypes.func.isRequired,
 };
 
 export default Selected;
