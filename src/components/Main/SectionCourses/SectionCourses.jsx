@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { useState } from "react";
 import Courses from "./Courses/Courses";
 import Selected from "./Selected/Selected";
 import { toast } from "react-toastify";
-import {
-  clearStorage,
-  removeStorage,
-  setStorage,
-} from "../../../utilities/localStorage";
+// import {
+//   clearStorage,
+//   removeStorage,
+//   setStorage,
+// } from "../../../utilities/localStorage";
 
 const SectionCourses = () => {
   //State
@@ -29,7 +30,7 @@ const SectionCourses = () => {
     toast.success("You are successfully selected this course.");
 
     //Local Storage
-    setStorage(obj, obj.credit + totalHour, obj.price + totalPrice);
+    // setStorage(obj, obj.credit + totalHour, obj.price + totalPrice);
   };
 
   //Remove Selection
@@ -42,7 +43,7 @@ const SectionCourses = () => {
     toast.info("You've removed a course.");
 
     //Local Storage
-    removeStorage(id, totalHour - total.credit, totalPrice - total.price);
+    // removeStorage(id, totalHour - total.credit, totalPrice - total.price);
   };
 
   // Remove All Selection
@@ -56,19 +57,19 @@ const SectionCourses = () => {
     toast.info("You've removed your selection.");
 
     //Local Storage
-    clearStorage();
+    // clearStorage();
   };
 
   //Rending The Local Storage Data
-  useEffect(() => {
-    const course = JSON.parse(window.localStorage.getItem("course"));
-    const credit = JSON.parse(window.localStorage.getItem("credit"));
-    const price = JSON.parse(window.localStorage.getItem("price"));
+  // useEffect(() => {
+  //   const course = JSON.parse(window.localStorage.getItem("course"));
+  //   const credit = JSON.parse(window.localStorage.getItem("credit"));
+  //   const price = JSON.parse(window.localStorage.getItem("price"));
 
-    setSelected(course);
-    setTotalHour(credit);
-    setTotalPrice(price);
-  }, []);
+  //   setSelected(course);
+  //   setTotalHour(credit);
+  //   setTotalPrice(price);
+  // }, []);
 
   return (
     <section className="flex flex-col-reverse lg:flex-row gap-6">
