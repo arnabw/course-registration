@@ -2,6 +2,11 @@ import { useState } from "react";
 import Courses from "./Courses/Courses";
 import Selected from "./Selected/Selected";
 import { toast } from "react-toastify";
+import {
+  clearStorage,
+  removeStorage,
+  setStorage,
+} from "../../../utilities/localStorage";
 
 const SectionCourses = () => {
   //State
@@ -9,7 +14,7 @@ const SectionCourses = () => {
   const [totalHour, setTotalHour] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  //Event Handle
+  //Set Selection
   const handleSelected = (obj) => {
     //Validation
     if (selected.find((select) => select.id === obj.id)) {
@@ -22,8 +27,11 @@ const SectionCourses = () => {
     setTotalHour(totalHour + obj.credit);
     setTotalPrice(totalPrice + obj.price);
     toast.success("You are successfully selected this course.");
+
+    setStorage(obj.id, obj.credit + totalHour, obj.price + totalPrice);
   };
 
+  //Remove Selection
   const handleSelectDeleted = (id) => {
     setSelected(selected.filter((select) => select.id !== id));
 
@@ -31,6 +39,21 @@ const SectionCourses = () => {
     setTotalHour(totalHour - total.credit);
     setTotalPrice(totalPrice - total.price);
     toast.info("You've removed a course.");
+
+    removeStorage(id, totalHour - total.credit, totalPrice - total.price);
+  };
+
+  // Remove All Selection
+  const handleRemoveAllSelection = () => {
+    if (!selected.length)
+      return toast.warn("You didn't select any course yet.");
+
+    setSelected([]);
+    setTotalHour(0);
+    setTotalPrice(0);
+    toast.info("You've removed your selection.");
+
+    clearStorage();
   };
 
   return (
@@ -41,6 +64,7 @@ const SectionCourses = () => {
         totalHour={totalHour}
         totalPrice={totalPrice}
         handleSelectDeleted={handleSelectDeleted}
+        handleRemoveAllSelection={handleRemoveAllSelection}
       />
     </section>
   );
