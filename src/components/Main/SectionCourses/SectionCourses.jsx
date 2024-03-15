@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Courses from "./Courses/Courses";
 import Selected from "./Selected/Selected";
 import { toast } from "react-toastify";
@@ -28,7 +28,8 @@ const SectionCourses = () => {
     setTotalPrice(totalPrice + obj.price);
     toast.success("You are successfully selected this course.");
 
-    setStorage(obj.id, obj.credit + totalHour, obj.price + totalPrice);
+    //Local Storage
+    setStorage(obj, obj.credit + totalHour, obj.price + totalPrice);
   };
 
   //Remove Selection
@@ -40,6 +41,7 @@ const SectionCourses = () => {
     setTotalPrice(totalPrice - total.price);
     toast.info("You've removed a course.");
 
+    //Local Storage
     removeStorage(id, totalHour - total.credit, totalPrice - total.price);
   };
 
@@ -53,8 +55,20 @@ const SectionCourses = () => {
     setTotalPrice(0);
     toast.info("You've removed your selection.");
 
+    //Local Storage
     clearStorage();
   };
+
+  //Rending The Local Storage Data
+  useEffect(() => {
+    const course = JSON.parse(window.localStorage.getItem("course"));
+    const credit = JSON.parse(window.localStorage.getItem("credit"));
+    const price = JSON.parse(window.localStorage.getItem("price"));
+
+    setSelected(course);
+    setTotalHour(credit);
+    setTotalPrice(price);
+  }, []);
 
   return (
     <section className="flex flex-col-reverse lg:flex-row gap-6">

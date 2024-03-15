@@ -25,10 +25,10 @@ const saveStorage = (courseStored, creditStored, priceStored) => {
 };
 
 //Set In Local Storage
-const setStorage = (id, credit, price) => {
+const setStorage = (obj, credit, price) => {
   let [courseStored, creditStored, priceStored] = getStorage();
 
-  courseStored.push(id);
+  courseStored.push(obj);
   creditStored = credit;
   priceStored = price;
 
@@ -44,7 +44,7 @@ const clearStorage = () => {
 const removeStorage = (id, credit, price) => {
   let [courseStored, creditStored, priceStored] = getStorage();
 
-  let remainingCourse = courseStored.filter((idx) => idx !== id);
+  let remainingCourse = courseStored.filter((course) => course.id !== id);
   creditStored = credit;
   priceStored = price;
 
